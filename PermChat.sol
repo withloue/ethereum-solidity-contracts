@@ -50,7 +50,7 @@ contract PermChat is AccessControl {
     grantRole(MUTED, u);
   }
   function unmute(address u) public onlyRole(DEFAULT_ADMIN_ROLE) {
-      grantRole(DEFAULT_ROLE, u);
+      revokeRole(MUTED, u);
   }
 
   function queryAdminLast() public view onlyRole(DEFAULT_ADMIN_ROLE) returns (bytes memory) {
@@ -58,13 +58,6 @@ contract PermChat is AccessControl {
   }
   function queryAdmin() public view onlyRole(DEFAULT_ADMIN_ROLE) returns (bytes memory) {
     return adm;
-  }
-  
-  function grantAdmin(address grantee) public onlyRole(DEFAULT_ADMIN_ROLE) {
-    grantRole(DEFAULT_ADMIN_ROLE, grantee);
-  }
-  function revoke(address revoked) public onlyRole(DEFAULT_ADMIN_ROLE) {
-    revokeRole(DEFAULT_ADMIN_ROLE, revoked)
   }
   
   //utils
