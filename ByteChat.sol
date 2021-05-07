@@ -10,12 +10,12 @@ contract ByteChat {
   bytes public all = bytes("\n--start--\n");
   bytes public last = bytes("\n--start--\n");
 
-  event newMessage(address u);
+  event newMessage(address u, bytes message);
   
   function sendMessage(bytes calldata message) public {
     last = bytes.concat("\n", toString(msg.sender), " -> ", message);
     all = bytes.concat(all, last);
-    emit newMessage(msg.sender);
+    emit newMessage(msg.sender, last);
   }
   
   
