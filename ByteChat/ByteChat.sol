@@ -1,4 +1,4 @@
-// contracts/chat.sol
+// contracts/ByteChat.sol
 // SPDX-License-Identifier: GPL-3.0
 
 
@@ -6,13 +6,15 @@
 
 pragma solidity ^0.8.4;
 
-contract ByteChat {
+import "../compensation/DeployerCompensation.sol";
+
+contract ByteChat is DeployerCompensation(2) {
   bytes public all = bytes("\n--start--\n");
   bytes public last = bytes("\n--start--\n");
 
   event newMessage(address u, bytes message);
   
-  function sendMessage(bytes calldata message) public {
+  function sendMessage(bytes calldata message) public _compensate() {
     last = bytes.concat("\n", toString(msg.sender), " -> ", message);
     all = bytes.concat(all, last);
     emit newMessage(msg.sender, last);
